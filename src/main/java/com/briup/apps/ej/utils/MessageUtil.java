@@ -1,6 +1,6 @@
 package com.briup.apps.ej.utils;
 
-import java.util.Date;
+        import java.util.Date;
 
 public class MessageUtil {
     /**
@@ -27,7 +27,7 @@ public class MessageUtil {
     /**
      * 返回成功的消息，一般用于查询操作的结果返回
      * */
-    public static Message success(String msg,Object data){
+    public static Message success(String msg, Object data){
         Message message = new Message();
         message.setStatus(200);
         message.setMessage(msg);
