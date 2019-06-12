@@ -5,7 +5,7 @@ import com.briup.apps.ej.bean.CustomerExample;
 import com.briup.apps.ej.utils.Message;
 
 import java.util.List;
-
+//测试
 public interface ICustomerService {
     List<Customer> findAll();
 
