@@ -1,6 +1,5 @@
 package com.briup.apps.ej.dao;
 
-import com.briup.apps.ej.bean.Address;
 import com.briup.apps.ej.bean.AddressExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
