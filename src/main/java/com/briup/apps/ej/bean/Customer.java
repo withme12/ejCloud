@@ -1,5 +1,6 @@
 package com.briup.apps.ej.bean;
 
+
 public class Customer {
     /**
      *

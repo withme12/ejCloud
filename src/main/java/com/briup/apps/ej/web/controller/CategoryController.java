@@ -36,9 +36,9 @@ public class CategoryController {
             return MessageUtil.error(e.getMessage());
         }
     }
-    /*@GetMapping("selectByName")
+    @GetMapping("selectByName")
     public Message selectByName(String name){
-        List<Category> list= (List<Category>) categoryService.selectByName(name);
-        return MessageUtil.success(list);
-    }*/
+        List<Category> list= categoryService.selectByName(name);
+        return MessageUtil.success("成功",list);
+    }
 }

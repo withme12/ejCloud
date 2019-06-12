@@ -25,15 +25,11 @@ public class CustomerController {
     }
     @ApiOperation("保存或更新用户信息")
     @GetMapping("saveOrUpdate")
-    public Message saveOrUpdate(Customer customer){
-        try {
+    public Message saveOrUpdate(Customer customer) throws Exception{
             customerService.saveOrUpdate(customer);
             return MessageUtil.success("保存成功");
-        }catch (Exception e){
-            e.printStackTrace();
-            return MessageUtil.error("e.getMessage()");
         }
-    }
+
     @ApiOperation("通过ID删除用户信息")
     @GetMapping("deleteById")
     public Message deleteById(Long id){

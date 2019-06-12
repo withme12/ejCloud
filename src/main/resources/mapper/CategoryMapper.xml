@@ -107,6 +107,11 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByName" parameterType="list" resultMap="BaseResultMap">
+    select *
+    from ej_category
+    where id = #{id}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated

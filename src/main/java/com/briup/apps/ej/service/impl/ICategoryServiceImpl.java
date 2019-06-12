@@ -25,11 +25,11 @@ public class ICategoryServiceImpl implements ICategoryService{
         }
     }
 
-    /*@Override
+    @Override
     public List<Category> selectByName(String name) {
         List<Category> list = categoryMapper.selectByName(name);
         return list;
-    }*/
+    }
 
     @Override
     public int deleteByPrimaryKey(Long id) {

@@ -26,7 +26,7 @@ public class CustomerServiceImpl implements ICustomerService {
 
     }
     @Override
-    public int saveOrUpdate(Customer customer) throws Exception{
+    public int saveOrUpdate(Customer customer){
         if(customer.getId()== null) {
             customer.setStatus("正常");
             return customerMapper.insert(customer);

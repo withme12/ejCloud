@@ -10,7 +10,7 @@ public interface ICategoryService {
 
     int deleteByPrimaryKey(Long id);
 
-    // List<Category> selectByName(String name);
+     List<Category> selectByName(String name);
 
 
 
