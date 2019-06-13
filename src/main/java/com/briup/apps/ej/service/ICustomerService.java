@@ -8,7 +8,7 @@ import java.util.List;
 //测试 查询部抛出异常，增删改要抛出异常
 public interface ICustomerService {
     List<Customer> findAll();
-//士大夫饭怼fd
+
     // List<CustomerExample> query(CustomerExample customerExample);
 
     Customer selectById(Long id);
