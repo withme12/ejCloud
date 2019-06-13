@@ -26,7 +26,7 @@ public class IWaiterServiceImpl implements IWaiterService {
     public int deleteById(Long id) throws Exception{
         return waiterMapper.deleteByPrimaryKey(id);
     }
-//asd
+
     @Override
     public List<Waiter> selectAll() {
         WaiterExample waiterExample = new WaiterExample();
