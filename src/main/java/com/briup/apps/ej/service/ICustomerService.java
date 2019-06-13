@@ -5,7 +5,7 @@ import com.briup.apps.ej.bean.CustomerExample;
 import com.briup.apps.ej.utils.Message;
 
 import java.util.List;
-//测试
+//测试 查询部抛出异常，增删改要抛出异常
 public interface ICustomerService {
     List<Customer> findAll();
 
