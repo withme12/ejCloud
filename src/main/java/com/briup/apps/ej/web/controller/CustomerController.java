@@ -18,6 +18,8 @@ public class CustomerController {
     @Autowired
     private ICustomerService customerService;
 
+
+    @ApiOperation("查找所有用户")
     @GetMapping("findAll")
     public Message findAll(){
         List<Customer> list = customerService.findAll();
@@ -50,5 +52,21 @@ public class CustomerController {
             Customer customer = customerService.selectById(id);
             return MessageUtil.success("查找成功",customer);
         }
+    }
+    @ApiOperation("用户封禁")
+    @GetMapping("close")
+    public Message close(Long id){
+        if (customerService.close(id)==1)
+          return MessageUtil.success("用户封禁成功");
+        else
+            return MessageUtil.error("封禁失败");
+    }
+    @ApiOperation("用户解封")
+    @GetMapping("open")
+    public Message open(Long id){
+        if (customerService.open(id)==1)
+            return MessageUtil.success("用户封禁成功");
+        else
+            return MessageUtil.error("封禁失败");
     }
 }
