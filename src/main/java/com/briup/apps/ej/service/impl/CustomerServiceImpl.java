@@ -14,6 +14,7 @@ public class CustomerServiceImpl implements ICustomerService {
     @Resource
     private CustomerMapper customerMapper;
 
+
     @Override
     public List<Customer> findAll() {
         CustomerExample example = new CustomerExample();
@@ -45,5 +46,19 @@ public class CustomerServiceImpl implements ICustomerService {
         } else {
             return customerMapper.deleteByPrimaryKey(id);
         }
+    }
+
+    @Override
+    public int close(Long id){
+     Customer customer = customerMapper.selectByPrimaryKey(id);
+     customer.setStatus("封禁");
+     return 1;
+    }
+
+    @Override
+    public int open(Long id){
+        Customer customer = customerMapper.selectByPrimaryKey(id);
+        customer.setStatus("解封");
+        return 1;
     }
 }
