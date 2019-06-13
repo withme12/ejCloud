@@ -28,6 +28,7 @@ public class CustomerServiceImpl implements ICustomerService {
     }
     @Override
     public int saveOrUpdate(Customer customer){
+        //id自动生成
         if(customer.getId()== null) {
             customer.setStatus("正常");
             return customerMapper.insert(customer);
