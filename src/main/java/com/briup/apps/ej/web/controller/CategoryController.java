@@ -29,7 +29,7 @@ public class CategoryController {
             return MessageUtil.error(e.getMessage());
         }
     }
-    @ApiOperation("保存或更新产品类别")
+    @ApiOperation("（ID自动生成，请勿输入ID）保存或更新产品类别")
     @GetMapping("saveOrUpdate")
     public Message saveOrUpdate(Category category){
         try{

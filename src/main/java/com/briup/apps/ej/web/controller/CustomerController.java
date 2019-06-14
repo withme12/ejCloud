@@ -33,7 +33,7 @@ public class CustomerController {
         List<Customer> list = customerService.findAll();
         return MessageUtil.success("success",list);
     }
-    @ApiOperation("保存或更新用户信息")
+    @ApiOperation("（ID自动生成，请勿输入ID）保存或更新用户信息")
     @GetMapping("saveOrUpdate")
     public Message saveOrUpdate(Customer customer) throws Exception{
             customerService.saveOrUpdate(customer);

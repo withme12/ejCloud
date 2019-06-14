@@ -27,7 +27,7 @@ public class ProductController {
         return MessageUtil.success("查询所有产品信息成功！",list);
     }
 
-    @ApiOperation("保存或更新产品信息")
+    @ApiOperation("（ID自动生成，请勿输入ID）保存或更新产品信息")
     @GetMapping("saveOrUpdate")
     public Message saveOrUpdate(Product product) throws Exception{
         productService.saveOrUpdate(product);

@@ -28,7 +28,7 @@ public class CommentController {
         return MessageUtil.success("success", list);
     }
 
-    @ApiOperation("保存或更新评论信息")
+    @ApiOperation("（ID自动生成，请勿输入ID）保存或更新评论信息")
     @GetMapping("saveOrUpdate")
     public Message saveOrUpdate(Comment comment) throws Exception {
         commentService.saveOrUpdate(comment);

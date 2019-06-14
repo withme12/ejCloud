@@ -20,7 +20,7 @@ public class AddressController {
 
     @Autowired
     private IAddressService addressService;
-    @ApiOperation("保存或更新用户地址信息")
+    @ApiOperation("（ID自动生成，请勿输入ID）保存或更新用户地址信息")
     @GetMapping("saveOrUpdate")
     public Message saveOrUpdate(Address address) throws Exception{
         addressService.saveOrUpdate(address);
