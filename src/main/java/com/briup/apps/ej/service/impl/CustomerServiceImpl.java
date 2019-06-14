@@ -40,6 +40,15 @@ public class CustomerServiceImpl implements ICustomerService {
 
 
     @Override
+    public void batchDelete(long[] ids) throws Exception {
+        for(long id : ids){
+            customerMapper.deleteByPrimaryKey(id);
+
+        }
+
+    }
+
+    @Override
     public int deleteById(Long id) throws Exception{
         if (id == null) {
             throw new Exception("要删除的用户不存在");

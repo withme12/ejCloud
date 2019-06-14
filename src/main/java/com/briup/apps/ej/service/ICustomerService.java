@@ -17,6 +17,8 @@ public interface ICustomerService {
 
     int deleteById(Long id) throws  Exception;
 
+    void batchDelete(long[] ids) throws Exception;
+
     int close(Long id);
 
     int open(Long id);

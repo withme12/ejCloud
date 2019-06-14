@@ -4,6 +4,7 @@ import com.briup.apps.ej.bean.Customer;
 import com.briup.apps.ej.service.ICustomerService;
 import com.briup.apps.ej.utils.Message;
 import com.briup.apps.ej.utils.MessageUtil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Api(description = "顾客管理接口")
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
@@ -52,6 +54,12 @@ public class CustomerController {
             Customer customer = customerService.selectById(id);
             return MessageUtil.success("查找成功",customer);
         }
+    }
+    @ApiOperation("批量删除（数据用“,”隔开）")
+    @GetMapping("batchDelete")
+    public Message batchDelete(long[] ids) throws Exception{
+        customerService.batchDelete(ids);
+        return MessageUtil.success("批量删除成功");
     }
     @ApiOperation("用户封禁")
     @GetMapping("close")
