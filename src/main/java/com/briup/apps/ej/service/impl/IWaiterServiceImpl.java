@@ -21,6 +21,13 @@ public class IWaiterServiceImpl implements IWaiterService {
     }
 
     @Override
+    public void batchDelete(Long[] ids) throws Exception {
+        for(long id : ids){
+            waiterMapper.deleteByPrimaryKey(id);
+        }
+    }
+
+    @Override
     public List<Waiter> query(Waiter waiter) {
         WaiterExample example=new WaiterExample();
         //通过服务员姓名模糊查询

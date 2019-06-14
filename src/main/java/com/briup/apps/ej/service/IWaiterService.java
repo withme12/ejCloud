@@ -12,4 +12,7 @@ public interface IWaiterService {
     int deleteById(Long id) throws Exception;
 
     List<Waiter> selectAll();
+
+    void batchDelete(Long[] ids) throws Exception;
+
 }

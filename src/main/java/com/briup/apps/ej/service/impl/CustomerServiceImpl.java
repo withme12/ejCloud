@@ -62,7 +62,6 @@ public class CustomerServiceImpl implements ICustomerService {
     public void batchDelete(long[] ids) throws Exception {
         for(long id : ids){
             customerMapper.deleteByPrimaryKey(id);
-
         }
 
     }
@@ -81,7 +80,7 @@ public class CustomerServiceImpl implements ICustomerService {
     public int close(Long id) throws Exception{
      Customer customer = customerMapper.selectByPrimaryKey(id);
      if(customer == null)
-         throw new Exception("要删除的用户不存在");
+         throw new Exception("用户不存在");
      else
          return customerMapper.closeById(id);
     }
@@ -90,7 +89,7 @@ public class CustomerServiceImpl implements ICustomerService {
     public int open(Long id) throws Exception{
         Customer customer = customerMapper.selectByPrimaryKey(id);
         if(customer == null)
-            throw new Exception("要删除的用户不存在");
+            throw new Exception("用户不存在");
         else
             return customerMapper.openById(id);
     }

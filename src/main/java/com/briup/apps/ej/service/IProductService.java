@@ -15,6 +15,7 @@ public interface IProductService {
     int saveOrUpdate(Product product) throws Exception;
 //单个删除
     int deleteById(Long id) throws  Exception;
- //
+ //批量删除
+    void batchDelete(Long[] ids) throws Exception;
 
 }
