@@ -1,6 +1,8 @@
 package com.briup.apps.ej.bean;
 
 
+import javax.validation.constraints.NotBlank;
+
 public class Customer {
     /**
      *

@@ -78,16 +78,20 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public int close(Long id){
+    public int close(Long id) throws Exception{
      Customer customer = customerMapper.selectByPrimaryKey(id);
-     customer.setStatus("封禁");
-     return 1;
+     if(customer == null)
+         throw new Exception("要删除的用户不存在");
+     else
+         return customerMapper.closeById(id);
     }
 
     @Override
-    public int open(Long id){
+    public int open(Long id) throws Exception{
         Customer customer = customerMapper.selectByPrimaryKey(id);
-        customer.setStatus("解封");
-        return 1;
+        if(customer == null)
+            throw new Exception("要删除的用户不存在");
+        else
+            return customerMapper.openById(id);
     }
 }

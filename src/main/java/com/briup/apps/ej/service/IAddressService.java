@@ -5,6 +5,7 @@ import com.briup.apps.ej.bean.Address;
 import java.util.List;
 
 public interface IAddressService {
+    List<Address> findAll();
     Address selectById(Long id);
     List<Address> query(Address address);
     int saveOrUpdate(Address address) throws Exception;

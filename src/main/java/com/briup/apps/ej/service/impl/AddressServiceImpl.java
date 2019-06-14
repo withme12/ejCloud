@@ -14,12 +14,20 @@ import java.util.List;
 public class AddressServiceImpl implements IAddressService {
     @Resource
     private AddressMapper addressMapper;
+
+    @Override
+
+    public List<Address> findAll() {
+        AddressExample example = new AddressExample();
+        return addressMapper.selectByExample(example);
+    }
+
     @Override
     public Address selectById(Long id) {
         return addressMapper.selectByPrimaryKey(id);
     }
     @Override
-    public List<Address> query(Address address) {
+    public List<Address> query(Address address){
         AddressExample example=new AddressExample();
         //通过地址模糊查询
         if (address.getAddress()!=null){

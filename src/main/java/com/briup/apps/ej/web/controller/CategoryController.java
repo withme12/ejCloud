@@ -19,6 +19,13 @@ import java.util.List;
 public class CategoryController {
     @Autowired
     private ICategoryService categoryService;
+
+    @ApiOperation("查找所有类别")
+    @GetMapping("findAll")
+    public Message findAll(){
+        List<Category> list = categoryService.findAll();
+        return MessageUtil.success("success",list);
+    }
     @ApiOperation("通过id删除产品类别")
     @GetMapping("deleteById")
     public Message deleteById(Long id) throws Exception {

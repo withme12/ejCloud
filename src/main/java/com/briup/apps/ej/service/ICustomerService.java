@@ -20,9 +20,9 @@ public interface ICustomerService {
 
     void batchDelete(long[] ids) throws Exception;
 
-    int close(Long id);
+    int close(Long id) throws Exception;
 
-    int open(Long id);
+    int open(Long id) throws Exception;
 
 }
 

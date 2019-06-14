@@ -20,6 +20,12 @@ public class WaiterController {
     @Autowired
     private IWaiterService iWaiterService;
 
+    @ApiOperation("查找所有服务员")
+    @GetMapping("findAll")
+    public Message findAll(){
+        List<Waiter> list = iWaiterService.findAll();
+        return MessageUtil.success("success",list);
+    }
     @ApiOperation("模糊查询")
     @GetMapping("query")
     public Message query(Waiter waiter){
