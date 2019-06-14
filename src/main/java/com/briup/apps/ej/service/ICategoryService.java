@@ -5,6 +5,7 @@ import com.briup.apps.ej.bean.Category;
 import java.util.List;
 
 public interface ICategoryService {
+    List<Category> findAll();
 
     int saveOrUpdate(Category category);
 

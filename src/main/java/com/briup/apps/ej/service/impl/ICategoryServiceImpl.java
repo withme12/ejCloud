@@ -16,6 +16,12 @@ public class ICategoryServiceImpl implements ICategoryService {
     private CategoryMapper categoryMapper;
 
     @Override
+    public List<Category> findAll() {
+        CategoryExample example = new CategoryExample();
+        return categoryMapper.selectByExample(example);
+    }
+
+    @Override
     public int saveOrUpdate(Category category) {
         if (category.getId() == null) {
             return categoryMapper.insert(category);

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ICommentService {
     List<Comment> findAll();
-//士大夫饭怼fd
+
     // List<CustomerExample> query(CustomerExample customerExample);
 
     Comment selectById(Long id);

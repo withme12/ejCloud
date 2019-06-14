@@ -5,6 +5,7 @@ import com.briup.apps.ej.bean.Waiter;
 import java.util.List;
 
 public interface IWaiterService {
+    List<Waiter> findAll();
     List<Waiter> query(Waiter waiter);
     int saveOrUpdate(Waiter waiter) throws Exception;
 

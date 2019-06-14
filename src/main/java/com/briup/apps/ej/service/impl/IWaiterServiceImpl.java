@@ -15,6 +15,12 @@ public class IWaiterServiceImpl implements IWaiterService {
     private WaiterMapper waiterMapper;
 
     @Override
+    public List<Waiter> findAll() {
+        WaiterExample example = new WaiterExample();
+        return waiterMapper.selectByExample(example);
+    }
+
+    @Override
     public List<Waiter> query(Waiter waiter) {
         WaiterExample example=new WaiterExample();
         //通过服务员姓名模糊查询

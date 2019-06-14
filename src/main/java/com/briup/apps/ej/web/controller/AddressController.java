@@ -20,6 +20,13 @@ public class AddressController {
 
     @Autowired
     private IAddressService addressService;
+
+    @ApiOperation("查找所有用户地址")
+    @GetMapping("findAll")
+    public Message findAll(){
+        List<Address> list = addressService.findAll();
+        return MessageUtil.success("success",list);
+    }
     @ApiOperation("保存或更新用户地址信息")
     @GetMapping("saveOrUpdate")
     public Message saveOrUpdate(Address address) throws Exception{
