@@ -21,6 +21,14 @@ public class IWaiterServiceImpl implements IWaiterService {
     }
 
     @Override
+    public Waiter selectById(long id) {
+            return waiterMapper.selectByPrimaryKey(id);
+
+        }
+
+
+
+    @Override
     public void batchDelete(Long[] ids) throws Exception {
         for(long id : ids){
             waiterMapper.deleteByPrimaryKey(id);

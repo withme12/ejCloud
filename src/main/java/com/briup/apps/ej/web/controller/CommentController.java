@@ -51,10 +51,10 @@ public class CommentController {
     @ApiOperation("通过ID查找用户评论")
     @GetMapping("selectById")
     public Message selectById(Long id) {
-        if (id == null)
+        Comment comment = commentService.selectById(id);
+        if (comment == null)
             return MessageUtil.error("无评论");
         else {
-            Comment comment = commentService.selectById(id);
             return MessageUtil.success("查找成功", comment);
         }
     }

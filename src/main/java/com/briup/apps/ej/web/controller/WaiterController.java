@@ -65,4 +65,15 @@ public class WaiterController {
         return MessageUtil.success("批量删除成功");
     }
 
+    @ApiOperation("通过ID查找员工信息")
+    @GetMapping("selectById")
+    public Message selectById(long id){
+        Waiter waiter= iWaiterService.selectById(id);
+        if(waiter==null)
+            return MessageUtil.error("用户不存在");
+        else{
+            return MessageUtil.success("查找成功",waiter);
+        }
+    }
+
 }

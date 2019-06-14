@@ -56,10 +56,10 @@ public class AddressController {
     @ApiOperation("通过ID查找地址信息")
     @GetMapping("selectById")
     public Message selectById(Long id){
-        if(id==null)
+        Address address = addressService.selectById(id);
+        if(address==null)
             return MessageUtil.error("用户地址不存在");
         else{
-            Address address = addressService.selectById(id);
             return MessageUtil.success("查找成功",address);
         }
     }

@@ -48,10 +48,10 @@ public class ProductController {
     @ApiOperation("通过ID查找产品信息")
     @GetMapping("selectById")
     public Message selectById(Long id){
-        if(id==null)
+        Product product = productService.selectById(id);
+        if(product ==null)
             return MessageUtil.error("该产品不存在");
         else{
-            Product product = productService.selectById(id);
             return MessageUtil.success("查找产品成功",product);
         }
     }

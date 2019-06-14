@@ -55,10 +55,10 @@ public class CustomerController {
     @ApiOperation("通过ID查找用户信息")
     @GetMapping("selectById")
     public Message selectById(Long id){
-        if(id==null)
+        Customer customer = customerService.selectById(id);
+        if(customer==null)
             return MessageUtil.error("用户不存在");
         else{
-            Customer customer = customerService.selectById(id);
             return MessageUtil.success("查找成功",customer);
         }
     }
