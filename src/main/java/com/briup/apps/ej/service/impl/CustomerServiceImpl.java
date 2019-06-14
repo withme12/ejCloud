@@ -26,6 +26,25 @@ public class CustomerServiceImpl implements ICustomerService {
         return customerMapper.selectByPrimaryKey(id);
 
     }
+
+    @Override
+    public List<Customer> query(Customer customer) {
+        CustomerExample example=new CustomerExample();
+        //通过客户姓名模糊查询
+        if (customer.getRealname()!=null){
+            example.createCriteria().andRealnameLike("%"+customer.getRealname()+"%");
+
+        }
+        //通过客户电话模糊查询
+        if (customer.getTelephone()!=null){
+            example.createCriteria().andTelephoneLike("%"+customer.getTelephone()+"%");
+
+        }
+
+        return customerMapper.selectByExample(example);
+    }
+
+
     @Override
     public int saveOrUpdate(Customer customer){
         //id自动生成
@@ -50,7 +69,8 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     public int deleteById(Long id) throws Exception{
-        if (id == null) {
+        Customer customer=customerMapper.selectByPrimaryKey(id);
+        if (customer == null) {
             throw new Exception("要删除的用户不存在");
         } else {
             return customerMapper.deleteByPrimaryKey(id);

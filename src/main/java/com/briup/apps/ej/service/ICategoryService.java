@@ -8,7 +8,7 @@ public interface ICategoryService {
 
     int saveOrUpdate(Category category);
 
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(Long id) throws Exception;
 
      List<Category> selectByName(String name);
 

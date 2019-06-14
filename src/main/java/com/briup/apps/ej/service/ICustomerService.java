@@ -12,6 +12,7 @@ public interface ICustomerService {
     // List<CustomerExample> query(CustomerExample customerExample);
 
     Customer selectById(Long id);
+    List<Customer> query(Customer customer);
 
     int saveOrUpdate(Customer customer) throws Exception;
 

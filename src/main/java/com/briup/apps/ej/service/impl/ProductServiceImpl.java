@@ -43,7 +43,9 @@ public class ProductServiceImpl implements IProductService{
     //单个删除(通过id)
     @Override
     public int deleteById(Long id) throws Exception{
-        if (id == null) {
+        Product product=productMapper.selectByPrimaryKey(id);
+
+              if (product == null) {
             throw new Exception("要删除的产品不存在");
         } else {
             return productMapper.deleteByPrimaryKey(id);

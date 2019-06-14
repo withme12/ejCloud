@@ -15,6 +15,29 @@ public class IWaiterServiceImpl implements IWaiterService {
     private WaiterMapper waiterMapper;
 
     @Override
+    public List<Waiter> query(Waiter waiter) {
+        WaiterExample example=new WaiterExample();
+        //通过服务员姓名模糊查询
+        if (waiter.getRealname()!=null){
+            example.createCriteria().andRealnameLike("%"+waiter.getRealname()+"%");
+
+        }
+        //通过服务员电话模糊查询
+        if (waiter.getTelephone()!=null){
+            example.createCriteria().andTelephoneLike("%"+waiter.getTelephone()+"%");
+
+        }
+        //通过服务员Id卡模糊查询
+        if (waiter.getIdcard()!=null){
+            example.createCriteria().andIdcardLike("%"+waiter.getIdcard()+"%");
+
+        }
+
+        return waiterMapper.selectByExample(example);
+    }
+
+
+    @Override
     public int saveOrUpdate(Waiter waiter) throws Exception{
         if(waiter.getId() == null)
            return waiterMapper.insert(waiter);
@@ -24,8 +47,15 @@ public class IWaiterServiceImpl implements IWaiterService {
 
     @Override
     public int deleteById(Long id) throws Exception{
-        return waiterMapper.deleteByPrimaryKey(id);
+        Waiter waiter=waiterMapper.selectByPrimaryKey(id);
+
+        if (waiter == null) {
+            throw new Exception("要删除的用户不存在");
+        } else {
+            return waiterMapper.deleteByPrimaryKey(id);
+        }
     }
+
 
     @Override
     public List<Waiter> selectAll() {

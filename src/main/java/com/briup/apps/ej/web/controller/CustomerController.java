@@ -19,7 +19,13 @@ import java.util.List;
 public class CustomerController {
     @Autowired
     private ICustomerService customerService;
+    @ApiOperation("模糊查询")
+    @GetMapping("query")
+    public Message query(Customer customer){
+        List<Customer> list=customerService.query(customer);
 
+        return MessageUtil.success("success",list);
+    }
 
     @ApiOperation("查找所有用户")
     @GetMapping("findAll")

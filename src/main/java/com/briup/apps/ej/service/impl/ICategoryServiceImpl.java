@@ -10,17 +10,16 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class ICategoryServiceImpl implements ICategoryService{
+public class ICategoryServiceImpl implements ICategoryService {
 
     @Resource
     private CategoryMapper categoryMapper;
 
     @Override
     public int saveOrUpdate(Category category) {
-        if(category.getId()==null){
-            return  categoryMapper.insert(category);
-        }
-        else {
+        if (category.getId() == null) {
+            return categoryMapper.insert(category);
+        } else {
             return categoryMapper.updateByPrimaryKey(category);
         }
     }
@@ -32,7 +31,13 @@ public class ICategoryServiceImpl implements ICategoryService{
     }
 
     @Override
-    public int deleteByPrimaryKey(Long id) {
-        return categoryMapper.deleteByPrimaryKey(id);
+    public int deleteByPrimaryKey(Long id) throws Exception {
+        Category category = categoryMapper.selectByPrimaryKey(id);
+
+        if (category == null) {
+            throw new Exception("要删除的用户不存在");
+        } else {
+            return categoryMapper.deleteByPrimaryKey(id);
+        }
     }
 }
