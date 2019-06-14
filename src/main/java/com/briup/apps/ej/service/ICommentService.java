@@ -15,4 +15,7 @@ public interface ICommentService {
 
     int deleteById(Long id) throws  Exception;
 
+    void batchDelete(long[] ids) throws Exception;
+
+
 }

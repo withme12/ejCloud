@@ -20,4 +20,5 @@ public interface IOrderService {
 
     void batchDelete(long[] ids) throws Exception;
 
+
 }
