@@ -18,7 +18,7 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private IProductService productService;
-
+    @ApiOperation("查询所有产品信息")
     @GetMapping("findAll")
     public Message findAll(){
         List<Product> list=productService.findAll();

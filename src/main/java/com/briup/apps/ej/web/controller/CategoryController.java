@@ -4,6 +4,7 @@ import com.briup.apps.ej.bean.Category;
 import com.briup.apps.ej.service.ICategoryService;
 import com.briup.apps.ej.utils.Message;
 import com.briup.apps.ej.utils.MessageUtil;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,7 @@ import java.util.List;
 public class CategoryController {
     @Autowired
     private ICategoryService categoryService;
-
+    @ApiOperation("通过id删除产品类别")
     @GetMapping("deleteById")
     public Message deleteById(Long id) throws Exception {
         try {
@@ -26,7 +27,7 @@ public class CategoryController {
             return MessageUtil.error(e.getMessage());
         }
     }
-
+    @ApiOperation("保存或更新产品类别")
     @GetMapping("saveOrUpdate")
     public Message saveOrUpdate(Category category){
         try{
@@ -36,6 +37,7 @@ public class CategoryController {
             return MessageUtil.error(e.getMessage());
         }
     }
+    @ApiOperation("通过产品类别名查询")
     @GetMapping("selectByName")
     public Message selectByName(String name){
         List<Category> list= categoryService.selectByName(name);
