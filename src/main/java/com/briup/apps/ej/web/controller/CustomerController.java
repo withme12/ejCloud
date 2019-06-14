@@ -69,7 +69,7 @@ public class CustomerController {
     }
     @ApiOperation("用户封禁")
     @GetMapping("close")
-    public Message close(Long id){
+    public Message close(Long id) throws Exception{
         if (customerService.close(id)==1)
           return MessageUtil.success("用户封禁成功");
         else
@@ -77,9 +77,9 @@ public class CustomerController {
     }
     @ApiOperation("用户解封")
     @GetMapping("open")
-    public Message open(Long id){
+    public Message open(Long id) throws Exception{
         if (customerService.open(id)==1)
-            return MessageUtil.success("用户封禁成功");
+            return MessageUtil.success("用户解封成功");
         else
             return MessageUtil.error("封禁失败");
     }

@@ -286,6 +286,16 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <update id="openById" parameterType="com.briup.apps.ej.bean.Customer">
+    update ej_customer
+    set status = "正常"
+    where id = #{id}
+  </update>
+  <update id="closeById" parameterType="com.briup.apps.ej.bean.Customer">
+    update ej_customer
+    set status = "封禁"
+    where id = #{id}
+  </update>
   <update id="updateByPrimaryKey" parameterType="com.briup.apps.ej.bean.Customer">
     <!--
       WARNING - @mbg.generated
