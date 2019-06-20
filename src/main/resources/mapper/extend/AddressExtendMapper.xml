@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.apps.ej.dao.extend.AddressExtendMapper">
+
+    <!--    <select id="selectAll" resultMap="courseExtendResultMap">-->
+    <!--     select * from sms_course-->
+    <!--    </select>-->
+    <!--    -->
+    <!--    <resultMap id="courseExtendResultMap" type="com.briup.apps.app02.bean.extend.CourseExtend">-->
+    <!--        <id column="id" property="id"/>-->
+    <!--        <result column="name" property="name"/>-->
+    <!--        <result column="description" property="description"/>-->
+    <!--        <result column="credit" property="credit"/>-->
+    <!--        <result column="teacher_id" property="teacher_id"/>-->
+    <!--        <association-->
+    <!--                select="com.briup.apps.app02.dao.UserMapper.findAll"-->
+    <!--                column="teacher_id"-->
+    <!--                property="teacher"/>-->
+    <!--    </resultMap>-->
+
+
+
+    <select id="findCustomerAddressById" resultMap="AddressExtendMapper">
+ select
+            ad.id as ad_id,
+            ct.id as ct_id,
+            province,
+            city,
+            area,
+            address,
+            ad.telephone as ad_telephone,
+            customer_id
+from ej_address ad inner join ej_customer ct
+on ct.id=ad.customer_id
+where ct.id=#{id}
+</select>
+    <resultMap id="AddressExtendMapper" type="com.briup.apps.ej.bean.extend.AddressExtend">
+        <id column="ad_id" jdbcType="BIGINT" property="id" />
+        <result column="province" property="province"/>
+        <result column="city"  property="city" />
+        <result column="area"  property="area" />
+        <result column="address"  property="address" />
+        <result column="ad_telephone"  property="telephone" />
+    </resultMap>
+</mapper>

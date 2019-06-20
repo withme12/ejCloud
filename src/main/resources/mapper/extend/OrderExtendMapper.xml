@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.apps.ej.dao.extend.OrderExtendMapper">
+
+    <!--    <select id="selectAll" resultMap="courseExtendResultMap">-->
+    <!--     select * from sms_course-->
+    <!--    </select>-->
+    <!--    -->
+    <!--    <resultMap id="courseExtendResultMap" type="com.briup.apps.app02.bean.extend.CourseExtend">-->
+    <!--        <id column="id" property="id"/>-->
+    <!--        <result column="name" property="name"/>-->
+    <!--        <result column="description" property="description"/>-->
+    <!--        <result column="credit" property="credit"/>-->
+    <!--        <result column="teacher_id" property="teacher_id"/>-->
+    <!--        <association-->
+    <!--                select="com.briup.apps.app02.dao.UserMapper.findAll"-->
+    <!--                column="teacher_id"-->
+    <!--                property="teacher"/>-->
+    <!--    </resultMap>-->
+    <select id="queryBasic" resultMap="orderVMResultMap">
+        select
+        o.id as o_id,
+        o.total as total,
+        o.order_time as orderTime,
+        c.realname as customerName,
+        w.realname as waiterName,
+        a.city as address
+        from ej_order o,ej_customer c,ej_waiter w,ej_address a
+        <where>
+            o.customer_id = c.id
+            AND o.waiter_id = w.id
+            AND o.address_id = a.id
+            <if test="customerId!=null">
+                AND c.id = #{customerId}
+            </if>
+            <if test="waiterId != null">
+                AND w.id = #{waiterId}
+            </if>
+        </where>
+    </select>
+    <resultMap id="orderVMResultMap" type="com.briup.apps.ej.bean.VM.OrderVM">
+        <id column="o_id" jdbcType="BIGINT" property="orderId" />
+        <result column="customerName" property="customerName" />
+        <result column="waiterName"  property="waiterName" />
+        <result column="address"  property="address" />
+        <result column="total"  property="total" />
+        <result column="orderTime"  property="orderTime" />
+    </resultMap>
+
+
+
+    <select id="findOrderAllMessageById" resultMap="OrderExtendMapper">
+        select
+            od.id as od_id,
+            wt.id as wt_id,
+            wt.realname ,
+            wt.telephone,
+            wt.password,
+            wt.status,
+            wt.photo,
+--          ol.id as ol_id,
+         cm.id as cm_id,
+            ct.id as ct_id,
+            ad.id as ad_id,
+
+
+
+            ct.realname as ct_realname,
+            ct.telephone as ct_telephone,
+            ct.password as ct_password,
+            ct.status as ct_status,
+            ct.photo as ct_photo,
+
+            content,
+            comment_time,
+            cm.order_id as cm_order_id,
+
+--             number,
+--             product_id,
+--             ol.order_id as ol_order_id,
+
+            province,
+            city,
+            area,
+            address,
+            ad.telephone as ad_telephone,
+           ad.customer_id as ad_customer_id,
+
+            order_time,
+            total,
+            od.customer_id as od_customer_id,
+            waiter_id,
+            address_id
+        from ej_order od inner join ej_waiter wt
+
+         on od.waiter_id= wt.id inner join ej_customer ct
+        on od.customer_id=ct.id inner join ej_address ad
+        on od.address_id=ad.id
+--         right join ej_order_line ol
+--         on od.id= ol.order_id
+        inner join ej_comment cm
+        on od.id=cm.order_id
+ where od.id=#{id}
+    </select>
+    <resultMap id="OrderExtendMapper"
+               type="com.briup.apps.ej.bean.extend.OrderExtend">
+        <id column="od_id" property="id"/>
+        <result column="total" property="total"/>
+        <result column="od_customer_id" property="customerId"/>
+        <result column="waiter_id" property="waiterId"/>
+        <result column="address_id" property="addressId"
+        />
+<!--        <association property="order_line" javaType="com.briup.apps.ej.bean.Order_line">-->
+<!--            <id column="ol_id" property="id"/>-->
+<!--            <result column="number" property="number"/>-->
+<!--            <result column="product_id" property="productId"/>-->
+<!--            <result column="ol_order_id" property="orderId"/>-->
+<!--        </association>-->
+        <association property="customer"  javaType="com.briup.apps.ej.bean.Customer">
+        <id column="ct_id" property="id"/>
+        <result column="ct_realname" property="realname"/>
+        <result column="ct_password" property="password"/>
+        <result column="ct_telephone" property="telephone"/>
+        <result column="ct_photo" property="photo"/>
+        </association>
+        <association property="address" javaType="com.briup.apps.ej.bean.Address">
+            <id column="ad_id" property="id"/>
+            <result column="province" property="province"/>
+            <result column="city" property="city"/>
+            <result column="area" property="area"/>
+            <result column="address" property="address"/>
+            <result column="ad_telephone" property="telephone"/>
+            <result column="ad_customer_id" property="customerId"/>
+        </association>
+
+        <association property="waiter" javaType="com.briup.apps.ej.bean.Waiter">
+            <id column="wt_id" property="id"/>
+            <result column="realname" property="realname"/>
+            <result column="password" property="password"/>
+            <result column="telephone" property="telephone"/>
+            <result column="status" property="status"/>
+            <result column="photo" property="photo"/>
+        </association>
+        <association property="comment" javaType="com.briup.apps.ej.bean.Comment">
+            <id column="cm_id" property="id"/>
+            <result column="content" property="content"/>
+            <result column="comment_time" property="commentTime"/>
+            <result column="cm_order_id" property="orderId"/>
+        </association>
+    </resultMap>
+
+
+    <!--通过学生ID查询课程信息-->
+<!--    <select id="findStudentCourseById" resultMap="StudentCourseExtendMapper2">-->
+<!--        select-->
+<!--            c.id c_id,-->
+<!--            x.id x_id,-->
+<!--            u.id u_id,-->
+<!--            realname,-->
+<!--            telephone,-->
+<!--            gender,-->
+<!--            status,-->
+<!--            name,-->
+<!--            credit,-->
+<!--            teacher_id,-->
+<!--            xk_time,-->
+<!--            grade,-->
+<!--            course_id,-->
+<!--            student_id-->
+<!--        from sms_studentCourse x inner join sms_user u-->
+<!--        on x.student_id = u.id inner join sms_course c-->
+<!--        on x.course_id=c.id-->
+<!--         where u.id=#{id}-->
+
+<!--    </select>-->
+<!--    <resultMap id="StudentCourseExtendMapper2"-->
+<!--               type="com.briup.apps.app02.bean.extend.StudentCourseExtend">-->
+<!--        <id column="x_id" property="id"/>-->
+<!--        <result column="xk_time" property="xk_time"/>-->
+<!--        <result column="grade" property="grade"/>-->
+
+<!--        &lt;!&ndash;        <association property="teacher" javaType="com.briup.apps.app02.bean.User">&ndash;&gt;-->
+<!--        &lt;!&ndash;            <id column="u_id" property="id"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;            <result column="realname" property="realname"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;        </association>&ndash;&gt;-->
+<!--        <collection property="course" javaType="com.briup.apps.app02.bean.Course">-->
+<!--            <id column="c_id" property="id"/>-->
+<!--            <result column="name" property="name"/>-->
+<!--            <result column="credit" property="credit"/>-->
+<!--            <result column="teacher_id" property="teacher_id"/>-->
+
+<!--        </collection>-->
+<!--        <collection property="student" javaType="com.briup.apps.app02.bean.User">-->
+<!--            <id column="u_id" property="id"/>-->
+<!--            <result column="realname" property="realname"/>-->
+<!--            <result column="telephone" property="telephone"/>-->
+<!--            <result column="gender" property="gender"/>-->
+<!--            <result column="status" property="status"/>-->
+<!--        </collection>-->
+<!--    </resultMap>-->
+    <!--        <association property="teacher" javaType="com.briup.apps.app02.bean.User">-->
+    <!--            <id column="u_id" property="id"/>-->
+    <!--            <result column="realname" property="realname"/>-->
+    <!--        </association>-->
+    <select id="findWaiterOrderMessageById" resultMap="OrderExtendMapper2">
+        select
+            od.id as od_id,
+            wt.id as wt_id,
+            wt.realname ,
+            wt.telephone,
+            wt.password,
+            wt.status,
+            wt.photo,
+--          ol.id as ol_id,
+         cm.id as cm_id,
+--             ct.id as ct_id,
+            ad.id as ad_id,
+
+
+
+--             ct.realname as ct_realname,
+--             ct.telephone as ct_telephone,
+--             ct.password as ct_password,
+--             ct.status as ct_status,
+--             ct.photo as ct_photo,
+
+            content,
+            comment_time,
+            cm.order_id as cm_order_id,
+
+--             number,
+--             product_id,
+--             ol.order_id as ol_order_id,
+
+            province,
+            city,
+            area,
+            address,
+            ad.telephone as ad_telephone,
+           ad.customer_id as ad_customer_id,
+
+            order_time,
+            total,
+            od.customer_id as od_customer_id,
+            waiter_id,
+            address_id
+        from ej_order od inner join ej_waiter wt
+         on od.waiter_id= wt.id
+--          inner join ej_customer ct on od.customer_id=ct.id
+        inner join ej_address ad on od.address_id=ad.id
+--          inner join ej_order_line ol
+--         on od.id= ol.order_id
+
+        inner join ej_comment cm
+        on od.id=cm.order_id
+ where wt.id=#{id}
+    </select>
+    <resultMap id="OrderExtendMapper2"
+               type="com.briup.apps.ej.bean.extend.OrderExtend">
+        <id column="od_id" property="id"/>
+        <result column="total" property="total"/>
+        <result column="od_customer_id" property="customerId"/>
+        <result column="waiter_id" property="waiterId"/>
+        <result column="address_id" property="addressId"/>
+<!--        <association property="order_line" javaType="com.briup.apps.ej.bean.Order_line">-->
+<!--            <id column="ol_id" property="id"/>-->
+<!--            <result column="number" property="number"/>-->
+<!--            <result column="product_id" property="productId"/>-->
+<!--            <result column="ol_order_id" property="orderId"/>-->
+<!--        </association>-->
+<!--        <association property="customer"  javaType="com.briup.apps.ej.bean.Customer">-->
+<!--            <id column="ct_id" property="id"/>-->
+<!--            <result column="ct_realname" property="realname"/>-->
+<!--            <result column="ct_password" property="password"/>-->
+<!--            <result column="ct_telephone" property="telephone"/>-->
+<!--            <result column="ct_photo" property="photo"/>-->
+<!--        </association>-->
+        <association property="address" javaType="com.briup.apps.ej.bean.Address">
+            <id column="ad_id" property="id"/>
+            <result column="province" property="province"/>
+            <result column="city" property="city"/>
+            <result column="area" property="area"/>
+            <result column="address" property="address"/>
+            <result column="ad_telephone" property="telephone"/>
+            <result column="ad_customer_id" property="customerId"/>
+        </association>
+
+        <association property="waiter" javaType="com.briup.apps.ej.bean.Waiter">
+<!--            <id column="wt_id" property="id"/>-->
+            <result column="realname" property="realname"/>
+<!--            <result column="password" property="password"/>-->
+            <result column="telephone" property="telephone"/>
+            <result column="status" property="status"/>
+            <result column="photo" property="photo"/>
+        </association>
+        <association property="comment" javaType="com.briup.apps.ej.bean.Comment">
+<!--            <id column="cm_id" property="id"/>-->
+            <result column="content" property="content"/>
+            <result column="comment_time" property="commentTime"/>
+<!--            <result column="cm_order_id" property="orderId"/>-->
+        </association>
+    </resultMap>
+
+
+<!--    查询客户的所有订单信息-->
+
+    <select id="query2" resultMap="orderExtendResultMap">
+        select
+        o.id as o_id,
+        o.order_time,
+        o.total,
+        o.customer_id,
+        o.waiter_id,
+        o.address_id,
+        c.id as c_id,
+        c.realname as c_realname,
+        c.telephone as c_telephone,
+        w.id as w_id,
+        w.realname as w_realname,
+        w.telephone as w_telephone,
+        a.id as a_id,
+        a.province,
+        a.city,
+        a.area,
+        a.address,
+        a.telephone
+        from ej_order o inner join ej_customer c on o.customer_id = c.id
+        inner join ej_waiter w on o.waiter_id = w.id
+        inner join ej_address a on o.address_id = a.id
+        <where>
+
+            <if test="customerId!=null">
+               c.id = #{customerId}
+            </if>
+            <if test="waiterId != null">
+                AND w.id = #{waiterId}
+            </if>
+        </where>
+
+    </select>
+
+    <resultMap
+            id="orderExtendResultMap"
+            type="com.briup.apps.ej.bean.extend.OrderExtend">
+        <!--基本属性的映射已经继承了-->
+        <id column="o_id" jdbcType="BIGINT" property="id" />
+        <result column="order_time" jdbcType="BIGINT" property="orderTime" />
+        <result column="total" jdbcType="DOUBLE" property="total" />
+        <result column="customer_id" jdbcType="BIGINT" property="customerId" />
+        <result column="waiter_id" jdbcType="BIGINT" property="waiterId" />
+        <result column="address_id" jdbcType="BIGINT" property="addressId" />
+        <!--还有四个关联属性-->
+        <association property="customer" javaType="com.briup.apps.ej.bean.Customer">
+            <id column="c_id" jdbcType="BIGINT" property="id" />
+            <result column="c_telephone" jdbcType="VARCHAR" property="telephone" />
+            <result column="c_realname" jdbcType="VARCHAR" property="realname" />
+        </association>
+        <association property="waiter" javaType="com.briup.apps.ej.bean.Waiter">
+            <id column="w_id" jdbcType="BIGINT" property="id" />
+            <result column="w_telephone" jdbcType="VARCHAR" property="telephone" />
+            <result column="w_realname" jdbcType="VARCHAR" property="realname" />
+        </association>
+        <association property="address" javaType="com.briup.apps.ej.bean.Address">
+            <id column="a_id" jdbcType="BIGINT" property="id" />
+            <result column="province" jdbcType="VARCHAR" property="province" />
+            <result column="city" jdbcType="VARCHAR" property="city" />
+            <result column="area" jdbcType="VARCHAR" property="area" />
+            <result column="address" jdbcType="VARCHAR" property="address" />
+            <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+        </association>
+    </resultMap>
+
+
+
+
+</mapper>

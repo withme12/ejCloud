@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.apps.ej.dao.extend.Order_lineExtendMapper">
+
+    <!--    <select id="selectAll" resultMap="courseExtendResultMap">-->
+    <!--     select * from sms_course-->
+    <!--    </select>-->
+    <!--    -->
+    <!--    <resultMap id="courseExtendResultMap" type="com.briup.apps.app02.bean.extend.CourseExtend">-->
+    <!--        <id column="id" property="id"/>-->
+    <!--        <result column="name" property="name"/>-->
+    <!--        <result column="description" property="description"/>-->
+    <!--        <result column="credit" property="credit"/>-->
+    <!--        <result column="teacher_id" property="teacher_id"/>-->
+    <!--        <association-->
+    <!--                select="com.briup.apps.app02.dao.UserMapper.findAll"-->
+    <!--                column="teacher_id"-->
+    <!--                property="teacher"/>-->
+    <!--    </resultMap>-->
+
+
+
+    <select id="findOrderDetails" resultMap="Order_lineExtendMapper">
+ select
+            od.id as od_id,
+            ol.id as ol_id,
+            number,
+            product_id,
+            ol.order_id as ol_order_id,
+
+            order_time,
+            total,
+            od.customer_id as od_customer_id,
+            waiter_id,
+            address_id,
+            name,
+            description,
+            price,
+            status,
+            photo,
+            category_id
+from ej_order_line ol inner join ej_product p
+on ol.product_id=p.id inner join ej_order od
+on od.id=ol.order_id
+where od.id=#{id}
+</select>
+    <resultMap id="Order_lineExtendMapper" type="com.briup.apps.ej.bean.extend.OrderLineExtend">
+        <id column="od_id" jdbcType="BIGINT" property="orderId" />
+        <result column="name" property="name" />
+        <result column="description"  property="description" />
+        <result column="price"  property="price" />
+        <result column="photo"  property="photo" />
+        <result column="total"  property="total" />
+        <result column="orderTime"  property="orderTime" />
+    </resultMap>
+</mapper>
