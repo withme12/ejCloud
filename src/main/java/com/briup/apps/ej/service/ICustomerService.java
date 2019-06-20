@@ -1,28 +1,21 @@
 package com.briup.apps.ej.service;
 
 import com.briup.apps.ej.bean.Customer;
-import com.briup.apps.ej.bean.CustomerExample;
-import com.briup.apps.ej.utils.Message;
+import com.briup.apps.ej.bean.extend.OrderExtend;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-//测试 查询部抛出异常，增删改要抛出异常
+
 public interface ICustomerService {
     List<Customer> findAll();
-
-    // List<CustomerExample> query(CustomerExample customerExample);
-
-    Customer selectById(Long id);
+    Customer findCustomerById(Long id);
+    void insertOrUpdate(Customer customer)throws Exception;
+    void deleteCustomerById(Long id) throws Exception;
     List<Customer> query(Customer customer);
+    void batchDelete(long[] ids)throws Exception;
+    List<OrderExtend> findOrderAllMessageById(Long id);
+    List<OrderExtend> query2(Long customerId, Long waiterId)throws Exception;
+   // List<CustomerExtend> selectAllWithTeacher();
 
-    int saveOrUpdate(Customer customer) throws Exception;
-
-    int deleteById(Long id) throws  Exception;
-
-    void batchDelete(long[] ids) throws Exception;
-
-    int close(Long id) throws Exception;
-
-    int open(Long id) throws Exception;
-
+   // List<StudentCourseExtend> selectCourseWithTeacherAndStudentAndGradeById(Long id);
 }
-

@@ -1,8 +1,10 @@
 package com.briup.apps.ej.service.impl;
 
-import com.briup.apps.ej.bean.Category;
-import com.briup.apps.ej.bean.CategoryExample;
+import com.briup.apps.ej.bean.*;
+import com.briup.apps.ej.bean.extend.CategoryExtend;
 import com.briup.apps.ej.dao.CategoryMapper;
+
+import com.briup.apps.ej.dao.extend.CategoryExtendMapper;
 import com.briup.apps.ej.service.ICategoryService;
 import org.springframework.stereotype.Service;
 
@@ -11,39 +13,63 @@ import java.util.List;
 
 @Service
 public class ICategoryServiceImpl implements ICategoryService {
-
     @Resource
-    private CategoryMapper categoryMapper;
+    CategoryMapper cm;
+    @Resource
+    private CategoryExtendMapper categoryExtendMapper;
+
+//    @Override
+//    public List<CategoryExtend> findProductWithCategory(Long id) {
+//        return categoryExtendMapper.findProductWithCategory(id);
+//    }
+
+    @Override
+    public int insertOrUpdate(Category category) {
+        if(category.getId()==null)
+            return cm.insert(category);
+
+          return  cm.updateByPrimaryKeySelective(category);
+
+    }
+
+    @Override
+    public List<CategoryExtend> findAllProductWithCategory(Long id) {
+        return categoryExtendMapper.findAllProductWithCategory(id);
+    }
 
     @Override
     public List<Category> findAll() {
-        CategoryExample example = new CategoryExample();
-        return categoryMapper.selectByExample(example);
+        CategoryExample ce=new CategoryExample();
+        return cm.selectByExample(ce);
     }
 
     @Override
-    public int saveOrUpdate(Category category) {
-        if (category.getId() == null) {
-            return categoryMapper.insert(category);
-        } else {
-            return categoryMapper.updateByPrimaryKey(category);
+    public List<Category> query(Category category) {
+        CategoryExample ce=new CategoryExample();
+        if(category.getName()!=null)
+            ce.createCriteria().andNameLike("%"+category.getName()+"%");
+
+        return cm.selectByExample(ce);
+    }
+
+    public int deleteByPrimaryKeys(Long[] ids) {
+        for (Long id:ids) {
+            cm.deleteByPrimaryKey(id);
         }
+        return 1;
     }
+    @Override
+    public int deleteByPrimaryKey(Long id) {
+        return cm.deleteByPrimaryKey(id);
+    }
+
+
 
     @Override
-    public List<Category> selectByName(String name) {
-        List<Category> list = categoryMapper.selectByName(name);
-        return list;
+    public Category selectByPrimaryKey(Long id) {
+        return cm.selectByPrimaryKey(id);
     }
 
-    @Override
-    public int deleteByPrimaryKey(Long id) throws Exception {
-        Category category = categoryMapper.selectByPrimaryKey(id);
 
-        if (category == null) {
-            throw new Exception("要删除的用户不存在");
-        } else {
-            return categoryMapper.deleteByPrimaryKey(id);
-        }
-    }
+
 }

@@ -1,19 +1,16 @@
 package com.briup.apps.ej.service;
 
 import com.briup.apps.ej.bean.Waiter;
+import com.briup.apps.ej.bean.extend.OrderExtend;
 
 import java.util.List;
 
 public interface IWaiterService {
     List<Waiter> findAll();
+    Waiter findWaiterById(Long id);
+    void insertOrUpdate(Waiter product)throws Exception;
+    void deleteWaiterById(Long id) throws Exception;
     List<Waiter> query(Waiter waiter);
-    int saveOrUpdate(Waiter waiter) throws Exception;
-
-    int deleteById(Long id) throws Exception;
-
-    List<Waiter> selectAll();
-
-    void batchDelete(Long[] ids) throws Exception;
-    Waiter selectById(long id);
-
+    void batchDelete(long[] ids)throws Exception;
+    List<OrderExtend> findWaiterOrderMessageById(Long id);
 }

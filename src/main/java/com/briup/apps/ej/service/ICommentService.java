@@ -6,16 +6,9 @@ import java.util.List;
 
 public interface ICommentService {
     List<Comment> findAll();
-
-    // List<CustomerExample> query(CustomerExample customerExample);
-
-    Comment selectById(Long id);
-
-    int saveOrUpdate(Comment comment) throws Exception;
-
-    int deleteById(Long id) throws  Exception;
-
-    void batchDelete(long[] ids) throws Exception;
-
-
+    Comment findCommentrById(Long id);
+    void insertOrUpdate(Comment comment)throws Exception;
+    void deleteCommentById(Long id) throws Exception;
+    List<Comment> query(Comment comment);
+    void batchDelete(long[] ids)throws Exception;
 }
